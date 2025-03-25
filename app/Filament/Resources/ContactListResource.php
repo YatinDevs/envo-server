@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LeaderResource\Pages;
-use App\Filament\Resources\LeaderResource\RelationManagers;
-use App\Models\Leader;
+use App\Filament\Resources\ContactListResource\Pages;
+use App\Filament\Resources\ContactListResource\RelationManagers;
+use App\Models\Contact;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,11 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class LeaderResource extends Resource
-{   
-    protected static ?string $navigationGroup = 'About Page';
-
-    protected static ?string $model = Leader::class;
+class ContactListResource extends Resource
+{
+    protected static ?string $model = Contact::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -25,17 +23,10 @@ class LeaderResource extends Resource
     {
         return $form
             ->schema([
-                //
                 Forms\Components\TextInput::make('name')->required(),
-                Forms\Components\TextInput::make('title')->required(),
-                Forms\Components\TextInput::make('icon')->required(),
-                Forms\Components\FileUpload::make('image_url')
-                    ->label('Leader Image')
-                    ->image()
-                    ->directory('leaders')
-                    ->preserveFilenames()
-                    ->required(),
-                Forms\Components\Textarea::make('description')->required(),
+                Forms\Components\TextInput::make('email')->email()->required(),
+                Forms\Components\TextInput::make('phone')->required(),
+                Forms\Components\Textarea::make('message')->required(),
             ]);
     }
 
@@ -43,11 +34,11 @@ class LeaderResource extends Resource
     {
         return $table
             ->columns([
-                //
-                Tables\Columns\ImageColumn::make('image_url')->label('Leader Image')->disk('public'),
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('description')->limit(50),
+                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('phone'),
+                Tables\Columns\TextColumn::make('message')->limit(50),
+                Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //
@@ -72,9 +63,9 @@ class LeaderResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLeaders::route('/'),
-            'create' => Pages\CreateLeader::route('/create'),
-            'edit' => Pages\EditLeader::route('/{record}/edit'),
+            'index' => Pages\ListContactLists::route('/'),
+            'create' => Pages\CreateContactList::route('/create'),
+            'edit' => Pages\EditContactList::route('/{record}/edit'),
         ];
     }
 }

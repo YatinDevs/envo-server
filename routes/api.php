@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\TestimonialController;
+use App\Http\Controllers\Api\ContactListController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,3 +15,4 @@ use App\Http\Controllers\Api\TestimonialController;
 |
 */
 
+Route::post('/contact-submit', [ContactListController::class, 'store']);

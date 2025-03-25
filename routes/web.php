@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\HeroSectionController;
 use App\Http\Controllers\Api\ServiceHeroSectionController;
 use App\Http\Controllers\Api\BlogHeroSectionController;
 use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\ContactListController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,6 +35,10 @@ Route::get('/blog-hero-sections', [BlogHeroSectionController::class, 'index']);
 Route::get('/blogs', [BlogController::class, 'index']);
 Route::get('/blogs/{slug}', [BlogController::class, 'show']);
 Route::post('/blogs', [BlogController::class, 'store']);
+
+Route::get('/contact-details', [ContactController::class, 'index']);
+
+// Route::post('/contact-submit', [ContactListController::class, 'store']);
 
 });
 

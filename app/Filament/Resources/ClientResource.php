@@ -14,7 +14,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ClientResource extends Resource
-{
+{   
+    protected static ?string $navigationGroup = 'Client Details';
+
     protected static ?string $model = Client::class;
     protected static ?string $navigationIcon = 'heroicon-s-building-office';
 

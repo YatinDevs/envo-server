@@ -14,7 +14,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AboutUsResource extends Resource
-{
+{  
+    protected static ?string $navigationGroup = 'About Page';
+
     protected static ?string $model = AboutUs::class;
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 

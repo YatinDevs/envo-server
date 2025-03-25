@@ -14,7 +14,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class HeroSectionResource extends Resource
-{
+{   
+    protected static ?string $navigationGroup = 'HomePage';
+    
     protected static ?string $model = HeroSection::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
