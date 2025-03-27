@@ -1,22 +1,22 @@
 <?php
-
 namespace App\Filament\Resources;
 
+use Filament\Tables\Columns\TextColumn; // Correct import
 use App\Filament\Resources\AboutUsResource\Pages;
-use App\Filament\Resources\AboutUsResource\RelationManagers;
 use App\Models\AboutUs;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\FileUpload;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AboutUsResource extends Resource
-{  
+{
     protected static ?string $navigationGroup = 'About Page';
-
     protected static ?string $model = AboutUs::class;
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
@@ -25,24 +25,20 @@ class AboutUsResource extends Resource
         return $form
             ->schema([
                 TextInput::make('company_name')->required(),
-
-            Textarea::make('description')->autosize()->required(), // Flexible text area
-
-            Repeater::make('expertise')
-                ->schema([
-                    TextInput::make('title')->required(),
-                    Textarea::make('description')->autosize()->required(),
-                ])
-                ->collapsed(),
-
-            Repeater::make('icons')
-                ->schema([
-                    TextInput::make('icon')->required(),
-                    TextInput::make('text')->required(),
-                ])
-                ->collapsed(),
-
-            FileUpload::make('slider_images')->multiple(),
+                Textarea::make('description')->autosize()->required(),
+                Repeater::make('expertise')
+                    ->schema([
+                        TextInput::make('title')->required(),
+                        Textarea::make('description')->autosize()->required(),
+                    ])
+                    ->collapsed(),
+                Repeater::make('icons')
+                    ->schema([
+                        TextInput::make('icon')->required(),
+                        TextInput::make('text')->required(),
+                    ])
+                    ->collapsed(),
+                FileUpload::make('slider_images')->multiple(),
             ]);
     }
 
@@ -53,9 +49,7 @@ class AboutUsResource extends Resource
                 TextColumn::make('company_name')->sortable(),
                 TextColumn::make('description')->limit(100),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -68,9 +62,7 @@ class AboutUsResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
